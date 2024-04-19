@@ -24,5 +24,27 @@ router.post('/', async (req, res) => {
     }
 });
 
+// delete
+router.delete('/:_id', async (req, res) => {
+    try {
+        await Media.findByIdAndDelete(req.params._id)
+        return res.status(201).json({}); // 201: Resource Created
+    }
+    catch (err) {
+        return res.status(400).json(err);  // 400: Bad Request
+    }
+});
+
+// update
+router.put('/:_id', async (req, res) => {
+    try {
+        const media = await Media.findByIdAndUpdate(req.params._id, req.body)
+        return res.status(201).json(media); // 201: Resource Created
+    }
+    catch (err) {
+        return res.status(400).json(err);  // 400: Bad Request
+    }
+});
+
 
 module.exports = router;
